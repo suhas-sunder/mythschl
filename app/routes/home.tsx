@@ -1635,40 +1635,27 @@ export default function MythologyHome() {
         </p>
       </section>
 
-      {/* FAQ schema for main FAQ section */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: faqs.map((f) => ({
-              "@type": "Question",
-              name: f.q,
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: f.a,
-              },
-            })),
-          }),
-        }}
-      />
-
-      {/* FAQ schema for quiz questions preview (subset) */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: questions.slice(0, 10).map((q) => ({
-              "@type": "Question",
-              name: q.q,
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: `${q.correct}. ${q.explanation}`,
-              },
-            })),
+            mainEntity: [
+              ...faqs.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+              ...questions.slice(0, 10).map((q) => ({
+                "@type": "Question",
+                name: q.q,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `${q.correct}. ${q.explanation}`,
+                },
+              })),
+            ],
           }),
         }}
       />
