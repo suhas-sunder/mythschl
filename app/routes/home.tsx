@@ -934,6 +934,33 @@ const questions = [
   },
 ];
 
+const faqs = [
+  {
+    q: "What is Mythology School?",
+    a: "Mythology School is a free online resource for studying world mythologies. It combines research-based articles, timelines, and quizzes to make mythology education accessible to everyone.",
+  },
+  {
+    q: "Which mythologies are covered?",
+    a: "We feature Greek, Norse, Egyptian, Hindu, Celtic, Japanese, and other world mythologies, with ongoing additions as new cultures are researched and verified.",
+  },
+  {
+    q: "Are the articles peer-reviewed or cited?",
+    a: "Yes. Each article references academic sources, museum archives, and primary translations to ensure accuracy and cultural respect.",
+  },
+  {
+    q: "Who can use Mythology School?",
+    a: "Students, teachers, writers, and enthusiasts can use our resources for education, creative projects, or self-learning.",
+  },
+  {
+    q: "Is it free to access?",
+    a: "Yes, all resources are free and open. Premium study tools and printable materials may be offered later to support maintenance.",
+  },
+  {
+    q: "Can I contribute or cite this site?",
+    a: "Absolutely. You may cite MythologySchool.com as a general reference and contact us if you'd like to contribute content or translations.",
+  },
+];
+
 function QuizSection() {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -1105,33 +1132,6 @@ function MythologyQASection() {
 }
 
 export default function MythologyHome() {
-  const faqs = [
-    {
-      q: "What is Mythology School?",
-      a: "Mythology School is a free online resource for studying world mythologies. It combines research-based articles, timelines, and quizzes to make mythology education accessible to everyone.",
-    },
-    {
-      q: "Which mythologies are covered?",
-      a: "We feature Greek, Norse, Egyptian, Hindu, Celtic, Japanese, and other world mythologies, with ongoing additions as new cultures are researched and verified.",
-    },
-    {
-      q: "Are the articles peer-reviewed or cited?",
-      a: "Yes. Each article references academic sources, museum archives, and primary translations to ensure accuracy and cultural respect.",
-    },
-    {
-      q: "Who can use Mythology School?",
-      a: "Students, teachers, writers, and enthusiasts can use our resources for education, creative projects, or self-learning.",
-    },
-    {
-      q: "Is it free to access?",
-      a: "Yes, all resources are free and open. Premium study tools and printable materials may be offered later to support maintenance.",
-    },
-    {
-      q: "Can I contribute or cite this site?",
-      a: "Absolutely. You may cite MythologySchool.com as a general reference and contact us if you'd like to contribute content or translations.",
-    },
-  ];
-
   return (
     <main className="bg-[#f8f6ef] text-slate-800 scroll-smooth font-sans">
       {/* Hero */}
@@ -1635,27 +1635,37 @@ export default function MythologyHome() {
         </p>
       </section>
 
+      {/* FAQ schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: [
-              ...faqs.map((f) => ({
-                "@type": "Question",
-                name: f.q,
-                acceptedAnswer: { "@type": "Answer", text: f.a },
-              })),
-              ...questions.slice(0, 10).map((q) => ({
-                "@type": "Question",
-                name: q.q,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: `${q.correct}. ${q.explanation}`,
-                },
-              })),
-            ],
+            mainEntity: faqs.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }),
+        }}
+      />
+
+      {/* Optional quiz Q&A schema (as educational QAPage) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "QAPage",
+            mainEntity: questions.slice(0, 10).map((q) => ({
+              "@type": "Question",
+              name: q.q,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: `${q.correct}. ${q.explanation}`,
+              },
+            })),
           }),
         }}
       />
