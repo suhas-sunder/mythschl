@@ -1,2 +1,3 @@
-# codetranslators
-Code translators including morse, binary, etc.
+# MythologySchool
+
+Live On: https://www.mythologyschool.com
